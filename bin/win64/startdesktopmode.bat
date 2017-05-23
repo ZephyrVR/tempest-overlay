@@ -1,0 +1,1 @@
+start Zephyr.exe -desktop -nosound
