@@ -17,6 +17,6 @@ debug
 login-util
 qtdata
 Zephyr.log
-bin/**/*.dll
-bin/**/*.exe
-bin/**/*.pdb
+*.exe
+*.dll
+*.pdb
