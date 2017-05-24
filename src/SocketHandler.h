@@ -15,7 +15,6 @@ namespace zephyr {
 class SocketHandler : public QObject {
 	Q_OBJECT
 	private:
-		QFileSystemWatcher* watcher;
 		QNetworkAccessManager* manager;
 		QByteArray jsonString;
 		QString jwt;

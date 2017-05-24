@@ -30,7 +30,7 @@ RootStackViewPage {
                         onClicked: {
                             MyResources.playFocusChangedSound()
                             OverlayController.promptLogin()
-                            loginOpenedMessage.showMessage("Login on Desktop", "See window on desktop to login.")
+                            loginOpenedMessage.showMessage("Login on Desktop", "Select \"Login Utility\" when starting Zephyr.")
                         }
                     }
 
@@ -100,7 +100,6 @@ Component.onCompleted: {
 Connections {
     target: OverlayController
     onLoggedInChanged : {
-        console.log("logged in changed")
         updateLoggedInState()
     }
 }
@@ -109,7 +108,7 @@ function updateLoggedInState() {
     var loggedIn = OverlayController.loggedIn
     loginButton.visible = !loggedIn
     logoutButton.visible = loggedIn
-    introText.text = !loggedIn ? "To get started, select \"Login\" and login using your Steam account." : "Notifications will appear as they arrive."
+    introText.text = !loggedIn ? "To get started, select \"Login Utility\" when launching Zephyr." : "Notifications will appear as they arrive."
 }
 
 function updateSummary() {

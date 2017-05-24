@@ -87,7 +87,7 @@ void OverlayController::Init(QQmlEngine* qmlEngine) {
 
 	socketHandler = new SocketHandler();
 
-	QString tokenPath = QString::fromStdString(QApplication::applicationDirPath().toStdString() + "\\token.json");
+    QString tokenPath = QString::fromStdString(QApplication::applicationDirPath().toStdString() + "/token.json");
 
 	loadTokenFromFile(tokenPath);
 
@@ -132,7 +132,7 @@ void OverlayController::SetWidget(QQuickItem* quickItem, const std::string& name
 		vr::VROverlay()->SetOverlayInputMethod(m_ulOverlayHandle, vr::VROverlayInputMethod_Mouse);
 		vr::VROverlay()->SetOverlayFlag(m_ulOverlayHandle, vr::VROverlayFlags_SendVRScrollEvents, true);
 		
-		std::string thumbIconPath = QApplication::applicationDirPath().toStdString() + "\\res\\overlay-icon.png";
+        std::string thumbIconPath = QApplication::applicationDirPath().toStdString() + "/res/overlay-icon.png";
 		if (QFile::exists(QString::fromStdString(thumbIconPath))) {
 			vr::VROverlay()->SetOverlayFromFile(m_ulOverlayThumbnailHandle, thumbIconPath.c_str());
 		} else {
@@ -315,8 +315,9 @@ void OverlayController::showKeyboard(QString existingText, unsigned long userVal
 }
 
 void OverlayController::promptLogin() {
-	QString file = QString::fromStdString(QApplication::applicationDirPath().toStdString() + "\\login-util\\Zephyr.exe");
-	QProcess::startDetached(file);
+    // TODO: Investigate why this doesn't play nice with Steam
+    // QString file = QString::fromStdString(QApplication::applicationDirPath().toStdString() + "/login-util/Zephyr.exe");
+    // QProcess::startDetached(file);
 }
 
 void OverlayController::onTokenModified(const QString &path) {
@@ -339,9 +340,14 @@ void OverlayController::loadTokenFromFile(QFile token) {
 
 		userToken = Token(name, avatar, room, tok);
 
+        if (!userToken.isLoggedIn()) {
+            logout();
+            emit loggedInChanged();
+            return;
+        }
+
 		socketHandler->connect();
 	} else {
-		userToken = Token();
         logout();
 	}
 
@@ -353,13 +359,14 @@ void OverlayController::logout() {
 
     socketHandler->disconnect();
 
-    QString tokenPath = QString::fromStdString(QApplication::applicationDirPath().toStdString() + "\\token.json");
+    QString tokenPath = QString::fromStdString(QApplication::applicationDirPath().toStdString() + "/token.json");
     QFile tokenFile(tokenPath);
 
     QJsonDocument jsonToWrite;
 
     tokenFile.open(QFile::WriteOnly);
     tokenFile.write(jsonToWrite.toJson());
+    tokenFile.close();
 
 	emit loggedInChanged();
 }

@@ -38,7 +38,7 @@ public:
 	static constexpr const char* applicationName = "Zephyr";
 	static constexpr const char* applicationVersionString = "v2.0";
 	static constexpr const int applicationVersionCode = 1;
-	static constexpr const char* apiVersionString = "v1.0 (1)";
+    static constexpr const char* apiVersionString = "v2.0 (1)";
 
 private:
 	vr::VROverlayHandle_t m_ulOverlayHandle = vr::k_ulOverlayHandleInvalid;
