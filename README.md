@@ -1,11 +1,9 @@
 Zephyr Overlay
 ==============
 
+> **NOTE:** This project was part of [Project Tempest](https://github.com/ZephyrVR/documents/blob/master/project-tempest.md) and is no longer actively maintained.
+
 OpenVR overlay for Zephyr.
-
-# Disclaimer
-
-I will have minimal (if any) access to a Windows development environment and an OpenVR HMD for the next couple of months, so updates relating to this repository will be few and far between.
 
 # Installation
 
